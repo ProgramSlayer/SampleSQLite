@@ -1,0 +1,47 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:WpfApp1.ViewModels" 
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <viewmodels:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="5"
+                    Grid.Row="1" Grid.Column="1">
+            <Button Content="Load" Command="{Binding LoadAkimLibItemsCommand}"
+                    Grid.Row="1" Grid.Column="1" Margin="5"/>
+            <Button Content="Add" Command="{Binding AddAkimLibItemCommand}"
+                    Grid.Row="1" Grid.Column="1" Margin="5"/>
+            <Button Content="Edit Selected" Command="{Binding EditAkimLibItemCommand}"
+                    CommandParameter="{Binding ElementName=dgTable, Path=SelectedItem}"
+                    Grid.Row="1" Grid.Column="1" Margin="5"/>
+            <Button Content="Delete Selected" Command="{Binding DeleteAkimLibItemCommand}"
+                    CommandParameter="{Binding ElementName=dgTable, Path=SelectedItem}"
+                    Grid.Row="1" Grid.Column="1" Margin="5"/>
+            
+        </StackPanel>
+        <DataGrid Name="dgTable" ItemsSource="{Binding AkimLibItems}" 
+                  Margin="5" SelectionMode="Single"
+                  Grid.Row="2" Grid.Column="1" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" IsReadOnly="True" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
